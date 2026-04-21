@@ -1,17 +1,30 @@
-import Castle from "./components/Castle";
+import { useState } from "react";
+import Castle from "./components/01_Castle";
 
 export default function App() {
+  //Creating State Variable
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+
+  // สถานที่ที่สิ่งที่userพิมพ์มาเก็บไว
+  const handleQuestion = (e) => {
+    setQuestion(e.target.value);
+  };
+  const handleAnswer = (e) => {
+    setAnswer(e.target.value);
+  };
   return (
     <div className="pb-80 py-10 gap-y-4 flex flex-col justify-center items-center min-h-screen bg-gray-800 text-white">
       <p className="text-purple-300">
         Message for JSD12:
         <span className="text-yellow-300">
           {/* quetion or waiting for a message */}
+          {question ? question : "Waiting for a message....."}
         </span>
       </p>
       <textarea
-        value=""
-        onChange=""
+        value={question}
+        onChange={handleQuestion}
         className="bg-white text-black rounded px-2 py-1"
         placeholder="Typer your message here..."
       />
@@ -19,9 +32,10 @@ export default function App() {
         Reply from Secret Room:
         <span className="text-yellow-300">
           {/* answer or waiting for a reply */}
+          {answer ? answer : "Waiting for a reply..."}
         </span>
       </p>
-      <Castle />
+      <Castle question={question} answer={answer} handleAnswer={handleAnswer} />
     </div>
   );
 }
